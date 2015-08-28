@@ -1,0 +1,8 @@
+speciesName	taxon	auth	version	name	uri	twoBitURI	desc	tier_type	provides_entrypoints	pinned
+Caenorhabditis elegans	6239	WS	220	WS220	http://www.derkholm.net:8080/das/cel_61_220/	NA	Worm reference genome build WS220	sequence	true	true
+Human	9606	GRCh	37	GRCh37	NA	http://www.biodalliance.org/datasets/hg19.2bit	Human reference genome build GRCh37	sequence	true	true
+Human	9606	GRCh	38	GRCh38	NA	http://www.biodalliance.org/datasets/hg38.2bit	Human reference genome build GRCh38	sequence	true	true
+Human	9606	NCBI	36	NCBI36	NA	http://www.biodalliance.org/datasets/hg18.2bit	Human reference genome build NCBI36	sequence	true	true
+Mouse	10090	GRCm	38	GRCm38	NA	http://www.biodalliance.org/datasets/GRCm38/mm10.2bit	Mouse reference genome build GRCm38	sequence	true	true
+Mouse	10090	NCBIM	37	NCBIM37	http://www.derkholm.net:9080/das/mm9comp/	NA	Mouse reference genome build NCBIM37	sequence	true	true
+Danio rerio	7955	Zv	9	Zv9	http://www.derkholm.net:9080/das/danRer7comp/	NA	Zebrafish reference genome build Zv9	sequence	true	true

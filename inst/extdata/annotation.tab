@@ -1,0 +1,9 @@
+name	desc	uri	bwgURI	stylesheet_uri	trixURI	collapseSuperGroups	provides_karyotype	provides_search	pinned
+WS220	Gene structures from Wormbase WS220	http://www.derkholm.net:8080/das/cel_61_220/	NA	NA	NA	true	true	true	true
+Ensembl54	Gene structures from Ensembl 54	http://www.derkholm.net:8080/das/hsa_54_36p/	NA	NA	NA	true	true	true	true
+GENCODEv19	Gene structures from GENCODE 19	NA	http://www.biodalliance.org/datasets/gencode.bb	http://www.biodalliance.org/stylesheets/gencode.xml	http://www.biodalliance.org/datasets/gene-index.ix	true	true	true	true
+GENCODEv20	Gene structures from GENCODE 20	NA	http://www.biodalliance.org/datasets/GRCh38/gencode.v20.annotation.bb	http://www.biodalliance.org/stylesheets/gencode2.xml	http://www.biodalliance.org/datasets/GRCh38/gencode.v20.annotation.ix	true	true	true	true
+GENCODEv21	Gene structures from GENCODE 21	NA	http://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.bb	http://www.biodalliance.org/stylesheets/gencode2.xml	http://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.ix	true	true	true	true
+GENCODEvM2	Gene structures from GENCODE M2	NA	http://www.biodalliance.org/datasets/GRCm38/gencodeM2.b	http://www.biodalliance.org/stylesheets/gencode.xml	http://www.biodalliance.org/datasets/GRCm38/gencodeM2.ix	true	true	true	true
+mEnsembl58	Gene structures from Ensembl 58	http://www.derkholm.net:8080/das/mmu_58_37k/	NA	NA	NA	true	true	true	true
+zvEnsembl61	Gene structures from Ensembl 61	http://www.derkholm.net:8080/das/dre_61_9a/	NA	NA	NA	true	true	true	true

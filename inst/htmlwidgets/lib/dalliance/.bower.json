@@ -1,0 +1,14 @@
+{
+  "name": "dalliance",
+  "homepage": "https://github.com/dasmoth/dalliance",
+  "_release": "c0edddb3e7",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "c0edddb3e73769f077a9680040865f753c996b61"
+  },
+  "_source": "git://github.com/dasmoth/dalliance.git",
+  "_target": "*",
+  "_originalSource": "dasmoth/dalliance",
+  "_direct": true
+}

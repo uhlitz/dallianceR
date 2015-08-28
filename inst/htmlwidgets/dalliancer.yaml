@@ -1,0 +1,5 @@
+dependencies:
+  - name: dalliance_compiled
+    version: 0.13.5
+    src: htmlwidgets/lib/dalliance_compiled
+    script: dalliance-compiled.js
