@@ -1,17 +1,14 @@
 HTMLWidgets.widget({
 
-  name: 'dalliance',
+  name: 'dallianceR',
 
   type: 'output',
 
   initialize: function(el, width, height) {
-
     return {  }
-
   },
 
   renderValue: function(el, x, instance) {
-
     new Browser({
       chr:          '22',
       viewStart:    30000000,
