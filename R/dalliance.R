@@ -89,8 +89,8 @@ dalliance <- function(input = data_frame(Experiment = 1,
 }
 
 # empty browser:
-dalliance()
+# dalliance()
 
 # browser with example bigwig tracks:
-dalliance(input)
+# dalliance(input)
 

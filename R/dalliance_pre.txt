@@ -1,4 +1,4 @@
-<script language='javascript' src='inst/htmlwidgets/dalliance.js'></script>
+<script language='javascript' src='inst/htmlwidgets/lib/dalliance_compiled/dalliance-compiled.js'></script>
 <script language='javascript'>
 var browser = new Browser({
     chr:          '1',
