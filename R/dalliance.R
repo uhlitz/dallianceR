@@ -2,7 +2,12 @@ library(readr)
 library(dplyr)
 library(magrittr)
 library(RColorBrewer)
-dummy <- read_tsv("R/example_input.tsv")
+
+dummy <- data_frame(Experiment = rep(c("MCF7", "HEK293"), times = c(8, 4)),
+                    Sample = rep(c("A", "B"), times = 6),
+                    Replicate = c(1, 1, 2, 2, 3, 3, 4, 4, 1, 1, 2, 2),
+                    bigwig = paste0("examples/bigwig/",
+                                   list.files("examples/bigwig/", pattern = ".bw$")))
 
 dalliance <- function(input, color = "Dark2") {
 
