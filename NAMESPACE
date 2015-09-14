@@ -1,6 +1,5 @@
-import(dalliancer)
-import(dplyr)
 import(magrittr)
+import(dplyr)
 import(RColorBrewer)
 import(readr)
 

@@ -2,18 +2,17 @@ Package: ggbd
 Title: A grammar of genome browsing with dalliance
 Version: 0.0.0.9000
 Authors@R: person("Florian", "Uhlitz", email = "uhlitz@gmail.com", role = c("aut", "cre"))
-Maintainer:
+Maintainer: Florian Uhlitz <uhlitz@gmail.com>, Vedran Franke <vedran.franke@gmail.com>
 Description: What the package does (one paragraph)
 License: Artistic-2.0
-LazyData: true
+LazyData: yes
 VignetteBuilder: knitr
 Depends:
   R (>= 3.2.1)
 Imports:
-  dalliancer
-  dplyr
-  magrittr
-  RColorBrewer
+  magrittr,
+  dplyr,
+  RColorBrewer,
   readr
 Suggests:
   testthat
