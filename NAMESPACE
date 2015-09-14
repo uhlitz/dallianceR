@@ -1,1 +1,8 @@
+import(dalliancer)
+import(dplyr)
+import(magrittr)
+import(RColorBrewer)
+import(readr)
+
+
 exportPattern("^[^\\.]")
