@@ -1,0 +1,19 @@
+                ],
+                
+    fullScreen: true,
+    reverseScrolling: true,
+    noTitle: true,
+    noPersist: true});
+    
+    function moveRight3() {
+    browser.setLocation(
+        browser.chr,
+        (browser.viewStart|0) + 1111111,
+        (browser.viewEnd|0) + 1111111
+    );
+};
+    
+</script>
+
+<div id="svgHolder" class="dalliance-container"></div>
+
