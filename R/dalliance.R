@@ -7,13 +7,17 @@ library(dplyr)
 library(magrittr)
 library(RColorBrewer)
 
-dummy <- data_frame(Experiment = rep(c("MCF7", "HEK293"), times = c(6, 4)),
-                    Sample = rep(c("A", "B"), times = 5),
+input <- data_frame(Experiment = rep(c("MCF7", "HEK293"), times = c(6, 4)),
+                    Sample = c("A", "B", "A", "B", "A", "B", "C", "D", "C", "D"),
                     Replicate = c(1, 1, 2, 2, 3, 3, 1, 1, 2, 2),
                     bigwig = paste0("examples/bigwig/",
                                    list.files("examples/bigwig/", pattern = ".bw$")))
 
-dalliance <- function(input, color = "Dark2") {
+dalliance <- function(input = data_frame(Experiment = 1,
+                                         Sample = 1,
+                                         Replicate = 1,
+                                         bigwig = 1),
+                      color = "Dark2") {
 
   input %>%
     group_by(Experiment, Sample) %>%
@@ -35,7 +39,7 @@ dalliance <- function(input, color = "Dark2") {
     }) %$%
     ALPHA %>%
     unlist(recursive = F) %>%
-    .[levels(input$Sample)] ->
+    .[input$Sample] ->
     ALPHA_list
 
   input %>%
@@ -84,5 +88,9 @@ dalliance <- function(input, color = "Dark2") {
     }
 }
 
-dalliance(dummy)
+# empty browser:
+dalliance()
+
+# browser with example bigwig tracks:
+dalliance(input)
 

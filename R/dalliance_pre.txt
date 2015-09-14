@@ -1,4 +1,4 @@
-<script language='javascript' src='data/dalliance-compiled.js'></script>
+<script language='javascript' src='inst/htmlwidgets/dalliance.js'></script>
 <script language='javascript'>
 var browser = new Browser({
     chr:          '1',
@@ -11,7 +11,7 @@ var browser = new Browser({
       auth: 'GRCh',
       version: '38'
     },
-    
+
     chains: {
       hg19ToHg38: new Chainset('http://www.derkholm.net:8080/das/hg19ToHg38/', 'GRCh37', 'GRCh38',
                                {
@@ -22,13 +22,13 @@ var browser = new Browser({
                                   ucscName: 'hg19'
                                })
     },
-    
-    sources:     [{name:                 'Genome GRCh38',      
-                   twoBitURI:            'http://www.biodalliance.org/datasets/hg38.2bit',  
+
+    sources:     [{name:                 'Genome GRCh38',
+                   twoBitURI:            'http://www.biodalliance.org/datasets/hg38.2bit',
                    tier_type:            'sequence',
                    pinned: true,
                    provides_entrypoints: true}
-                   
+
                   ,{name: 'GENCODEv21',
                        desc: 'Gene structures from GENCODE 21',
                        bwgURI: 'http://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.bb',
