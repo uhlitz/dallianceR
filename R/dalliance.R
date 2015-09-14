@@ -64,7 +64,8 @@ dalliance <- function(input = data_frame(Experiment = 1,
                         "style: [", paste(.$style, collapse = ","), "]}")) %$%
       track
   }) %>%
-    unlist %>% {
+    unlist %>%
+    .[!duplicated(.)] %>% {
       do.call(cat, as.list(c(
         readLines("R/dalliance_pre.txt"),
         .,
