@@ -1,4 +1,4 @@
-dalliance <- function(input = data_frame(Experiment = 1,
+dalliance_dirty <- function(input = data_frame(Experiment = 1,
                                          Sample = 1,
                                          Replicate = 1,
                                          bigwig = 1),
