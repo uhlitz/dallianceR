@@ -1,4 +1,4 @@
-Package: dalianceR
+Package: dallianceR
 Title: A grammar of genome browsing with dalliance
 Version: 0.0.0.9000
 Authors@R: person("Florian", "Uhlitz", email = "uhlitz@gmail.com", role = c("aut", "cre"))
