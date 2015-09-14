@@ -1,6 +1,6 @@
 HTMLWidgets.widget({
 
-  name: 'dalliancer',
+  name: 'dalliance',
 
   type: 'output',
 

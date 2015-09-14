@@ -1,3 +1,4 @@
+import(htmlwidgets)
 import(magrittr)
 import(dplyr)
 import(RColorBrewer)
