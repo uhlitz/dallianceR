@@ -13,8 +13,7 @@ Imports:
   htmlwidgets,
   magrittr,
   dplyr,
-  RColorBrewer,
-  readr
+  RColorBrewer
 Suggests:
   testthat
 
