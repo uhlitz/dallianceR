@@ -94,7 +94,6 @@ The corresponding javascript would look like this:
 
 ```
 
-
 # Workflow
 
 A common workflow loads... 
@@ -106,6 +105,7 @@ A common workflow loads...
     + or qualitative data: eg. `.gff` and `.vcf` (future) 
 
 Where grouped tracks should be added in lists. In general, syntax to build a genome browser could resemble the [leaflet](https://rstudio.github.io/leaflet/) syntax to build maps.
+
 
 ```{r eval = F}
 
