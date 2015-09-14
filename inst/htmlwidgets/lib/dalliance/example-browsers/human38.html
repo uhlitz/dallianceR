@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 
 <html>
 
@@ -7,7 +7,7 @@
 <style>
 </style>
 
-<title>Human GRCh38 :: Dalliance</title> 
+<title>Human GRCh38 :: Dalliance</title>
 <script language="javascript" src="../build/dalliance-all.js"></script>
 
 <script language="javascript">
@@ -59,11 +59,11 @@ var b = new Browser({
                        mapping: 'hg19ToHg38'}
 
                       ,{name: "My track",
-                        bwgURI: "~Dropbox/ITB/R/Current/HEK_RAF_2014/rna_seq/Rmd/bigwig/ML_CS_001_X_TS.fastq_GRCh38.77_STAR_Signal.Unique.str1.out.sorted.bw",
+                        bwgURI: "~/Projects/R/pckgs/gbdr/examples/bigwig/SRR1033457.fastq_GRCh38.77_STAR_Signal.Unique.str1.out.sorted.bw",
                         style: [{type: 'bigwig', style: {glyph: 'HISTOGRAM', BGCOLOR: 'rgb(166,71,71)', HEIGHT: 30, id: 'style1'}}]}
-                        
+
                       ,{name: 'Repeats',
-                        desc: 'Repeat annotation from UCSC', 
+                        desc: 'Repeat annotation from UCSC',
                         bwgURI: 'http://www.biodalliance.org/datasets/GRCh38/repeats.bb',
                         stylesheet_uri: 'http://www.biodalliance.org/stylesheets/bb-repeats2.xml'}
 
@@ -78,8 +78,8 @@ var b = new Browser({
                           }
                         }
                        }
-                       
-                       
+
+
 
     ],
 
@@ -102,4 +102,3 @@ var b = new Browser({
 <div id='svgHolder'>Failed to load the Biodalliance genome browser.  Have you run "gulp"?</div>
 </body>
 </html>
-

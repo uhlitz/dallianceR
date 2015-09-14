@@ -10,7 +10,7 @@ dalliance <- function(data=NULL, width = NULL, height = NULL) {
 
     # pass the data and settings using 'x'
     x <- list(
-      data = data
+      data = wrangle_tracks(data)
     )
 
     # create the widget
