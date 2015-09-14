@@ -1,19 +1,3 @@
-# devtools::install_github("hadley/readr")
-# devtools::install_github("hadley/dplyr")
-# devtools::install_github("hadley/magrittr")
-# install.packages("RColorBrewer")
-library(readr)
-library(dplyr)
-library(magrittr)
-library(RColorBrewer)
-
-example <- data_frame(Experiment = rep(c("MCF7", "HEK293"), times = c(6, 4)),
-                      Sample = c("A", "B", "A", "B", "A", "B", "C", "D", "C", "D"),
-                      Replicate = c(1, 1, 2, 2, 3, 3, 1, 1, 2, 2),
-                      bigwig = paste0(
-                        "examples/bigwig/",
-                        list.files("examples/bigwig/", pattern = ".bw$")))
-
 dalliance <- function(input = data_frame(Experiment = 1,
                                          Sample = 1,
                                          Replicate = 1,
@@ -88,10 +72,3 @@ dalliance <- function(input = data_frame(Experiment = 1,
         sep = "\n\n")))
     }
 }
-
-# empty browser:
-# dalliance()
-
-# browser with example bigwig tracks:
-# dalliance(input)
-
