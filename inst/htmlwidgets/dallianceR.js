@@ -6,6 +6,7 @@ HTMLWidgets.widget({
 
   initialize: function(el, width, height) {
     return {  }
+
   },
 
   renderValue: function(el, x, instance) {
@@ -51,10 +52,7 @@ HTMLWidgets.widget({
                           hubs: ['http://ngs.sanger.ac.uk/production/ensembl/regulation/hub.txt', {url: 'http://ftp.ebi.ac.uk/pub/databases/ensembl/encode/integration_data_jan2011/hub.txt', genome: 'hg19', mapping: 'hg19ToHg38'}]});
 
 
-  },
-
-  resize: function(el, width, height, instance) {
-
   }
+
 
 });

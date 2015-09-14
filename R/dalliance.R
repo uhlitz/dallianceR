@@ -8,6 +8,7 @@ dalliance <- function(data=NULL, width = NULL, height = NULL) {
 #       drawNodes = drawNodes
 #     )
 
+
     # pass the data and settings using 'x'
     x <- list(
       data = data
@@ -15,5 +16,5 @@ dalliance <- function(data=NULL, width = NULL, height = NULL) {
 
     # create the widget
     htmlwidgets::createWidget("dallianceR", x, width = width, height = height,
-                              elementId = "svgHolder")
-  }
+                              elementId='svgHolder')
+}
