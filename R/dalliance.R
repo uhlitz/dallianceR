@@ -1,3 +1,7 @@
+# devtools::install_github("hadley/readr")
+# devtools::install_github("hadley/dplyr")
+# devtools::install_github("hadley/magrittr")
+# install.packages("RColorBrewer")
 library(readr)
 library(dplyr)
 library(magrittr)
