@@ -17,6 +17,7 @@ A dalliance function call generates a genome browser htmlwidget with a given ref
 ```{r load_dalliance, results = "asis", echo = F, warnings = F, message = F}
 
 source("R/dalliance.R")
+source("R/data.R")
 
 ```
 
@@ -24,7 +25,7 @@ source("R/dalliance.R")
 
 ```{r browser_w_tracks, results = "asis", echo = F, warnings = F, message = F}
 
-dalliance(input = example)
+dalliance(input = dummy)
 
 ```
 
