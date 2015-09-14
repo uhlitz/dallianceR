@@ -20,50 +20,14 @@ source("R/dalliance.R")
 
 ```
 
-```{r minimal_browser, results = "asis", echo = F, warnings = F, message = F}
+# Example browser with tracks
 
-dalliance() 
+```{r browser_w_tracks, results = "asis", echo = F, warnings = F, message = F}
 
-```
-
-The corresponding javascript would look like this:
-
-```{r, eval = F}
-
-<script language="javascript" src="http://www.biodalliance.org/dev/dalliance-compiled.js"></script>
-<script language="javascript">
-  new Browser({
-    chr:          '14',
-    viewStart:    75276274,
-    viewEnd:      75284730,
-    cookieKey:    'human',
-    coordSystem: {
-      speciesName: 'Human',
-      taxon: 9606,
-      auth: 'GRCh',
-      version: '38'
-    },
-    
-    
-    sources:     [{name:                 'GRCh38',      
-                   twoBitURI:            'http://www.biodalliance.org/datasets/hg38.2bit',  
-                   tier_type:            'sequence',
-                   provides_entrypoints: true}
-                   
-                  ,{name: 'GENCODEv21',
-                       desc: 'Gene structures from GENCODE 21',
-                       bwgURI: 'http://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.bb',
-                       stylesheet_uri: 'http://www.biodalliance.org/stylesheets/gencode2.xml',
-                       collapseSuperGroups: true,
-                       trixURI: 'http://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.ix'}
-   
-                ]});
-    
-</script>
-
-<div id="svgHolder"></div>
+dalliance(input = example)
 
 ```
+
 
 # Workflow
 
