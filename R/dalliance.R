@@ -14,5 +14,6 @@ dalliance <- function(data=NULL, width = NULL, height = NULL) {
     )
 
     # create the widget
-    htmlwidgets::createWidget("dallianceR", x, width = width, height = height)
+    htmlwidgets::createWidget("dallianceR", x, width = width, height = height,
+                              elementId = "svgHolder")
   }
