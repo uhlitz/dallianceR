@@ -1,5 +1,10 @@
 dependencies:
-  - name: dalliance_compiled
+  - name: dalliance
     version: 0.13.5
-    src: htmlwidgets/lib/dalliance_compiled
-    script: dalliance-compiled.js
+    src: htmlwidgets/lib
+    script:
+      - dalliance_compiled/dalliance-compiled.js
+    stylesheet:
+      - dalliance/css/bootstrap-scoped.css
+      - dalliance/css/dalliance-scoped.css
+      - dalliance/css/font-awesome.min.css
