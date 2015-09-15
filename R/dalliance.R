@@ -1,20 +1,106 @@
-#' @import htmlwidgets
+# ---------------------------------------------------------------------------- #
+#' Description
+#'
+#' @param data \code{data.frame} , \code{GRanges}, a BAM file or a BigWig
+#'  to be overlapped with ranges in \code{data}
+#'
+#' @param genome
+#'
+#' @param annotation
+#'
+#' @param width
+#'
+#' @param height
+#'
+#' @param color
+#'
+#' @param combine_replicates
+#'
+#' @param outpath
+#'
+#' @examples
+#'
+#' @docType methods
+#' @rdname dalliance-methods
 #' @export
-dalliance <- function(data=NULL, width = NULL, height = NULL) {
+setGeneric("dalliance",
+           function(data=NULL,
+                    genome=NULL,
+                    annotation=NULL,
+                    width=NULL,
+                    height=NULL,
+                    color=NULL,
+                    combine_replicates=FALSE,
+                    outpath=NULL)
+             standardGeneric("dalliance") )
 
-    # create a list that contains the settings
-#     settings <- list(
-#       drawEdges = drawEdges,
-#       drawNodes = drawNodes
-#     )
+# ------------------------------------------------ #
+#' @rdname dalliance-methods
+#' @usage  \\S4method{dalliance}{data.frame}(data,genome, annotation, width, height)
+setMethod("dalliance",signature("data.frame"),
+          function(data=NULL, genome=NULL, annotation=NULL,
+                   width = NULL, height = NULL){
+
+
+    # checks the variables
+    if(class(data) != 'data.frame')
+      stop('data needs to be a data.frame object')
+
+    columns.required = c('Experiment','Sample','Replicate')
+    if(!all(columns.required %in% colnames(data))){
+      stop(paste('data is missing the following column names:',
+                 setdiff(columns.required, colnames(data)), collapse=" "))
+    }
+
+    if(!is.character(genome))
+        stop('genome needs to be a character vector')
+
+    if(!is.character(annotation))
+        stop('annotation needs to be a character vector')
+
+    if(!is.null(color) & length(color) != length(data$Sample))
+        stop('number of colors does not correspond to the number of samples')
+
+
 
 
     # pass the data and settings using 'x'
     x <- list(
-      data = wrangle_tracks(data)
+
+      ### implement combine replicates into wrangle tracks
+      data = wrangle_tracks(data),
+      # data = wrangle_tracks(data, combine_replicates)
+
+      settings = list(genome     = predefined_genomes(genome),
+                      annotation = predefined_annotations(annotation))
     )
 
     # create the widget
     htmlwidgets::createWidget("dallianceR", x, width = width, height = height,
                               elementId='svgHolder')
-}
+})
+
+#' @rdname dalliance-methods
+#' @usage  \\S4method{dalliance}{GRanges}(data, genome, annotation, width, height, color, combine_replicates, outpath)
+setMethod("dalliance",signature("GRanges"),
+          function(data, genome, annotation,
+                   width, height, color, combine_replicates, outpath){
+
+
+          if(!is.character(outpath) | !file.exists(outpath))
+            stop('outpath is not a valid path')
+
+})
+
+# ------------------------------------------------ #
+#' @rdname dalliance-methods
+#' @usage  \\S4method{dalliance}{GRangesList}(data, genome, annotation, width, height, color, combine_replicates, outpath)
+setMethod("dalliance",signature("GRangesList"),
+          function(data, genome, annotation,
+                   width, height, color, combine_replicates, outpath){
+
+
+            if(!is.character(outpath) | !file.exists(outpath))
+              stop('outpath is not a valid path')
+
+          })

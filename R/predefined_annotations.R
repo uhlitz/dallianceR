@@ -19,6 +19,7 @@ predefined_annotations <- function(name) {
                   "Predefined annotations are:",
                   paste(ann_tab$name, collapse = ", ")))
 }
+
 list_predefined_annotations <- function() {
   data(ann_tab)
   ann_tab$name

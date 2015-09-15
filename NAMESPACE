@@ -4,4 +4,6 @@ import(dplyr)
 import(RColorBrewer)
 
 
-exportPattern("^[^\\.]")
+export(dalliance)
+export(list_predefined_annotations)
+export(list_predefined_genomes)
