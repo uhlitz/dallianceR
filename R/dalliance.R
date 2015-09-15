@@ -67,8 +67,8 @@ setMethod("dalliance",signature("data.frame"),
 
     # -------------------------------------------------------------- #
     # Sets the colors
-    if(!is.null(color)){
-      if(!length(color) == length(data$Sample)){
+    if(!is.null(colors)){
+      if(!length(colors) == length(data$Sample)){
         stop('number of colors does not correspond to the number of samples')
 
       }else{
@@ -78,7 +78,7 @@ setMethod("dalliance",signature("data.frame"),
         }else{
           fac = data$sample
         }
-        data$Color = colors[as.numeric(as.factor(fac))]
+        data$Colors = colors[as.numeric(as.factor(fac))]
       }
     }
 
