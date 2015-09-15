@@ -25,8 +25,8 @@
 #' @export
 setGeneric("dalliance",
            function(data=NULL,
-                    genome=NULL,
-                    annotation=NULL,
+                    genome="GENCODEv21",
+                    annotation="GENCODEv21",
                     width=NULL,
                     height=NULL,
                     colors=NULL,
@@ -40,12 +40,13 @@ setGeneric("dalliance",
 
 # ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{data.frame}(data,genome, annotation, width, height)
+#' @usage  \\S4method{dalliance}{data.frame}(data,genome, annotation, width, height, colors_combine_replicates, outpath, path, display, prefix)
 setMethod("dalliance",signature("data.frame"),
-          function(data=NULL, genome=NULL, annotation=NULL,
-                   width = NULL, height = NULL,
-                   path="/tmp/dalliance", display=FALSE,
-                   prefix="http://localhost:8000/") {
+          function(data, genome, annotation,
+                   width, height, colors,
+                   combine_replicates, outpath,
+                   path, display,
+                   prefix) {
 
 
     # -------------------------------------------------------------- #
@@ -78,7 +79,7 @@ setMethod("dalliance",signature("data.frame"),
         }else{
           fac = data$sample
         }
-        data$Colors = colors[as.numeric(as.factor(fac))]
+        data$Color = colors[as.numeric(as.factor(fac))]
       }
     }
 
@@ -127,10 +128,13 @@ setMethod("dalliance",signature("data.frame"),
 
 # ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{GRanges}(data, genome, annotation, width, height, colors, combine_replicates, outpath)
+#' @usage  \\S4method{dalliance}{GRanges}(data, genome, annotation, width, height, colors, combine_replicates, outpath, path, display, prefix)
 setMethod("dalliance",signature("GRanges"),
           function(data, genome, annotation,
-                   width, height, colors, combine_replicates, outpath){
+                   width, height, colors,
+                   combine_replicates, outpath
+                   path, display,
+                   prefix){
 
 
           if(!is.character(outpath) | !file.exists(outpath))
@@ -140,13 +144,31 @@ setMethod("dalliance",signature("GRanges"),
 
 # ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{GRangesList}(data, genome, annotation, width, height, colors, combine_replicates, outpath)
+#' @usage  \\S4method{dalliance}{GRangesList}(data, genome, annotation, width, height, colors, combine_replicates, outpath, path, display, prefix)
 setMethod("dalliance",signature("GRangesList"),
           function(data, genome, annotation,
-                   width, height, colors, combine_replicates, outpath){
+                   width, height, colors,
+                   combine_replicates, outpath
+                   path, display,
+                   prefix){
 
 
             if(!is.character(outpath) | !file.exists(outpath))
               stop('outpath is not a valid path')
 
           })
+
+# ---------------------------------------------------------------------------- #
+#' @rdname dalliance-methods
+#' @usage  \\S4method{dalliance}{tbl_df}(data, genome, annotation, width, height, colors, combine_replicates, path, display, prefix)
+setMethod("dalliance",signature("tbl_df"),
+          function(data, genome, annotation,
+                   width, height, colors,
+                   combine_replicates,
+                   path, display,
+                   prefix){
+
+          dalliance(as.data.frame(data), genome, annotation,width, height, colors,
+                    combine_replicates, path, display,prefix)
+})
+
