@@ -6,6 +6,7 @@ HTMLWidgets.widget({
 
   initialize: function (el, width, height) {},
 
+
   renderValue: function (el, x, instance) {
     // The data arrives in a weird format: an object with multiple
     // arrays, all with the same length.  We'd rather want a single
