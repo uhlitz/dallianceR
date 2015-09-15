@@ -25,6 +25,7 @@ Have a look at our [vignette](vignettes/dallianceRManual.Rmd) to get started.
     # start the HTTP server
     mkdir ~/tmp/dalliance
     cd ~/tmp/dalliance
+    cp ~/dalliancer/worker-all.js .
     python ~/dalliancer/serve_http.py
 
     # in R
