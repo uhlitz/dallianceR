@@ -18,6 +18,12 @@
 #'
 #' @param outpath
 #'
+#' @param path
+#'
+#' @param display
+#'
+#' @param prefix
+#'
 #' @examples
 #'
 #' @docType methods
@@ -37,10 +43,56 @@ setGeneric("dalliance",
                     prefix="http://localhost:8000/")
              standardGeneric("dalliance") )
 
+# ---------------------------------------------------------------------------- #
+# for NULL object
+#' @rdname dalliance-methods
+#' @usage  \\S4method{dalliance}{NULL}(data, genome, annotation, width, height,
+#'                    colors, combine_replicates, outpath, path, display, prefix)
+setMethod("dalliance",signature("data.frame"),
+          function(data, genome, annotation,
+                   width, height, colors,
+                   combine_replicates, outpath,
+                   path, display,
+                   prefix){
+
+        # constructs the arguments
+        x <- list(
+
+          ### implement combine replicates into wrangle tracks
+          data = data,
+          # data = wrangle_tracks(data, combine_replicates)
+
+          settings = list(genome     = predefined_genomes(genome),
+                          annotation = predefined_annotations(annotation),
+                          prefix     = prefix)
+        )
+
+        # -------------------------------------------------------------- #
+        # create the widget
+        widget <- htmlwidgets::createWidget("dallianceR", x, width = width, height = height,
+                                            elementId = "svgHolder")
+
+        # "selfcontained" requires Pandoc to be installed.  We better not
+        # add a dependency on Haskell for something as simple as
+        # generating an HTML page.
+        htmlwidgets::saveWidget(widget=widget,
+                                file=file.path(path, "index.html"),
+                                selfcontained=FALSE)
+
+        if (display) {
+            # TODO: run a local HTTP server first
+            system2(command=getOption("browser"),
+                    args=c(paste(prefix, "/index.html", sep="")))
+        }
+
+
+})
+
 
 # ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{data.frame}(data,genome, annotation, width, height, colors_combine_replicates, outpath, path, display, prefix)
+#' @usage  \\S4method{dalliance}{data.frame}(data,genome, annotation, width, height,
+#'                    colors, combine_replicates, outpath, path, display, prefix)
 setMethod("dalliance",signature("data.frame"),
           function(data, genome, annotation,
                    width, height, colors,
@@ -77,7 +129,7 @@ setMethod("dalliance",signature("data.frame"),
           fac = with(data, paste(Sample, Replicate))
 
         }else{
-          fac = data$sample
+          fac = data$Sample
         }
         data$Color = colors[as.numeric(as.factor(fac))]
       }
@@ -128,11 +180,12 @@ setMethod("dalliance",signature("data.frame"),
 
 # ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{GRanges}(data, genome, annotation, width, height, colors, combine_replicates, outpath, path, display, prefix)
+#' @usage  \\S4method{dalliance}{GRanges}(data, genome, annotation, width, height,
+#'                    colors, combine_replicates, outpath, path, display, prefix)
 setMethod("dalliance",signature("GRanges"),
           function(data, genome, annotation,
                    width, height, colors,
-                   combine_replicates, outpath
+                   combine_replicates, outpath,
                    path, display,
                    prefix){
 
@@ -144,11 +197,12 @@ setMethod("dalliance",signature("GRanges"),
 
 # ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{GRangesList}(data, genome, annotation, width, height, colors, combine_replicates, outpath, path, display, prefix)
+#' @usage  \\S4method{dalliance}{GRangesList}(data, genome, annotation, width, height,
+#'                    colors, combine_replicates, outpath, path, display, prefix)
 setMethod("dalliance",signature("GRangesList"),
           function(data, genome, annotation,
                    width, height, colors,
-                   combine_replicates, outpath
+                   combine_replicates, outpath,
                    path, display,
                    prefix){
 
@@ -160,7 +214,8 @@ setMethod("dalliance",signature("GRangesList"),
 
 # ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{tbl_df}(data, genome, annotation, width, height, colors, combine_replicates, path, display, prefix)
+#' @usage  \\S4method{dalliance}{tbl_df}(data, genome, annotation, width, height,
+#'                    colors, combine_replicates, path, display, prefix)
 setMethod("dalliance",signature("tbl_df"),
           function(data, genome, annotation,
                    width, height, colors,
