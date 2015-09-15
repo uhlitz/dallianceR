@@ -31,7 +31,7 @@
 #' @export
 setGeneric("dalliance",
            function(data=NULL,
-                    genome="GENCODEv21",
+                    genome="GRCh38",
                     annotation="GENCODEv21",
                     width=NULL,
                     height=NULL,
