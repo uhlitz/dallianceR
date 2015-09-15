@@ -6,8 +6,9 @@ HTMLWidgets.widget({
 
   initialize: function (el, width, height) {},
 
-
   renderValue: function (el, x, instance) {
+    var settings = x["settings"];
+
     // The data arrives in a weird format: an object with multiple
     // arrays, all with the same length.  We'd rather want a single
     // array containing objects with named columns.
@@ -83,24 +84,17 @@ HTMLWidgets.widget({
       return tracks;
     })();
 
-    // The sources consist of the genome and standard annotations
-    // followed by the tracks specified in the dataset.
-    // FIXME: this should be configurable via R.
-    var sources = [
-      { name: "Genome GRCh38",
-        twoBitURI: "http://www.biodalliance.org/datasets/hg38.2bit",
-        tier_type: "sequence",
-        provides_entrypoints: true
-      },
+    var genome = (function () {
+      var gs = settings["genome"];
+      return ((gs === undefined) ? {} : gs);
+    })();
 
-      { name: "GENCODEv21",
-        desc: "Gene structures from GENCODE 21",
-        bwgURI: "http://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.bb",
-        stylesheet_uri: "http://www.biodalliance.org/stylesheets/gencode2.xml",
-        collapseSuperGroups: true,
-        trixURI: "http://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.ix"
-      }
-    ].concat(tracks);
+    var annotation = (function () {
+      var as = settings["annotation"];
+      return ((as !== undefined) ? {} : as);
+    })();
+
+    var sources = [genome, annotation].concat(tracks);
 
     // Create a genome browser with dalliance.js
     new Browser({
@@ -126,8 +120,7 @@ HTMLWidgets.widget({
       // dalliance uses to load only the required chunks of bigwig
       // files.
 
-      // FIXME: make the port configurable via R
-      uiPrefix:     "http://localhost:8000/",
+      uiPrefix:     settings["prefix"],
       chr:          "22",
       viewStart:    30000000,
       viewEnd:      30030000,
