@@ -1,12 +1,10 @@
 HTMLWidgets.widget({
 
-  name: 'dallianceR',
+  name: "dallianceR",
 
-  type: 'output',
+  type: "output",
 
-  initialize: function(el, width, height) {
-    return {  }
-  },
+  initialize: function (el, width, height) {},
 
   renderValue: function(el, x, instance) {
     new Browser({
@@ -53,8 +51,6 @@ HTMLWidgets.widget({
 
   },
 
-  resize: function(el, width, height, instance) {
-
-  }
+  resize: function (el, width, height, instance) {}
 
 });
