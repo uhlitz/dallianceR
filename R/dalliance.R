@@ -80,6 +80,16 @@ setMethod("dalliance",signature("data.frame"),
       }
     }
 
+    # link all data files to the output directory, or else the HTTP
+    # server won't be able to serve them.
+    links <- file.path(path, basename(data$Path))
+    for (i in 1:length(links)) {
+        if (file.exists(data$Path[i])) {
+            file.link(data$Path[i], links[i])
+            data$Path[i] = basename(data$Path)
+        }
+    }
+
     # pass the data and settings using 'x'
     # -------------------------------------------------------------- #
     # constructs the arguments
