@@ -104,6 +104,30 @@ HTMLWidgets.widget({
 
     // Create a genome browser with dalliance.js
     new Browser({
+      // The worker (along with various CSS files) is expected to be
+      // located on a host indicated by the prefix.  The same applies
+      // to data files that are not hosted publicly.  We can only load
+      // them into our widgets if the following conditions apply:
+      //
+      //   1) We use our own copy of the worker.
+      //   2) The data files are served by an HTTP server
+      //   3) The worker is located on the same host as the data files
+      //
+      // The easiest way to satisfy all these conditions is to run a
+      // local HTTP server that serves both worker and data files.
+      // A simple way to start a local web server is to use Python:
+      //
+      //    cd /path/to/your/data
+      //    python3 -m http.server 8000
+      //    # or: python2 -m SimpleHTTPServer
+      //
+      // But actually, this doesn't work.  At all.  The built-in HTTP
+      // server in Python does not support Range requests, which
+      // dalliance uses to load only the required chunks of bigwig
+      // files.
+
+      // FIXME: make the port configurable via R
+      uiPrefix:     "http://localhost:8000/",
       chr:          "22",
       viewStart:    30000000,
       viewEnd:      30030000,
