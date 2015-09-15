@@ -33,7 +33,8 @@ setGeneric("dalliance",
                     combine_replicates=FALSE,
                     outpath=NULL,
                     path="/tmp/dalliance",
-                    display=FALSE)
+                    display=FALSE,
+                    prefix="http://localhost:8000/")
              standardGeneric("dalliance") )
 
 
@@ -43,7 +44,8 @@ setGeneric("dalliance",
 setMethod("dalliance",signature("data.frame"),
           function(data=NULL, genome=NULL, annotation=NULL,
                    width = NULL, height = NULL,
-                   path="/tmp/dalliance", display=FALSE) {
+                   path="/tmp/dalliance", display=FALSE,
+                   prefix="http://localhost:8000/") {
 
 
     # -------------------------------------------------------------- #
@@ -100,7 +102,8 @@ setMethod("dalliance",signature("data.frame"),
       # data = wrangle_tracks(data, combine_replicates)
 
       settings = list(genome     = predefined_genomes(genome),
-                      annotation = predefined_annotations(annotation))
+                      annotation = predefined_annotations(annotation),
+                      prefix     = prefix)
     )
 
     # -------------------------------------------------------------- #
@@ -118,7 +121,7 @@ setMethod("dalliance",signature("data.frame"),
     if (display) {
         # TODO: run a local HTTP server first
         system2(command=getOption("browser"),
-                args=c("http://localhost:8000/index.html"))
+                args=c(paste(prefix, "/index.html", sep="")))
     }
 })
 
