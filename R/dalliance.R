@@ -88,7 +88,7 @@ setMethod("dalliance",signature("data.frame"),
     for (i in 1:length(links)) {
         if (file.exists(data$Path[i])) {
             file.link(data$Path[i], links[i])
-            data$Path[i] = basename(data$Path)
+            data$Path[i] = basename(data$Path[i])
         }
     }
 
