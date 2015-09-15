@@ -32,7 +32,7 @@ setGeneric("dalliance",
                     colors=NULL,
                     combine_replicates=FALSE,
                     outpath=NULL,
-                    filename="index.html",
+                    path="/tmp/dalliance",
                     display=FALSE)
              standardGeneric("dalliance") )
 
@@ -43,7 +43,7 @@ setGeneric("dalliance",
 setMethod("dalliance",signature("data.frame"),
           function(data=NULL, genome=NULL, annotation=NULL,
                    width = NULL, height = NULL,
-                   filename="index.html", display=FALSE) {
+                   path="/tmp/dalliance", display=FALSE) {
 
 
     # -------------------------------------------------------------- #
@@ -102,8 +102,7 @@ setMethod("dalliance",signature("data.frame"),
     # add a dependency on Haskell for something as simple as
     # generating an HTML page.
     htmlwidgets::saveWidget(widget=widget,
-                            file=filename,
-                            libdir=".",
+                            file=file.path(path, "index.html"),
                             selfcontained=FALSE)
 
     if (display) {
