@@ -23,7 +23,7 @@ wrangle_tracks <- function(data, color = "Dark2") {
     .[data$Sample] ->
     ALPHA_list
 
-  if (any("Color" %in% colnames(data))) {
+  if (!any("Color" %in% colnames(data))) {
   data %<>%
     mutate(Color = Experiment %>%
              unique %>%

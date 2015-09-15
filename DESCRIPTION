@@ -10,10 +10,12 @@ VignetteBuilder: knitr
 Depends:
   R (>= 3.2.1)
 Imports:
+  GenomicRanges,
   htmlwidgets,
   magrittr,
   dplyr,
-  RColorBrewer
+  RColorBrewer,
+  rtracklayer
 Suggests:
   testthat
 

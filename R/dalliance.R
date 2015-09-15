@@ -18,6 +18,12 @@
 #'
 #' @param outpath
 #'
+#' @param path
+#'
+#' @param display
+#'
+#' @param prefix
+#'
 #' @examples
 #'
 #' @docType methods
@@ -25,8 +31,8 @@
 #' @export
 setGeneric("dalliance",
            function(data=NULL,
-                    genome=NULL,
-                    annotation=NULL,
+                    genome="GENCODEv21",
+                    annotation="GENCODEv21",
                     width=NULL,
                     height=NULL,
                     colors=NULL,
@@ -37,15 +43,62 @@ setGeneric("dalliance",
                     prefix="http://localhost:8000/")
              standardGeneric("dalliance") )
 
+# ---------------------------------------------------------------------------- #
+# for NULL object
+#' @rdname dalliance-methods
+#' @usage  \\S4method{dalliance}{NULL}(data, genome, annotation, width, height,
+#'                    colors, combine_replicates, outpath, path, display, prefix)
+setMethod("dalliance",signature("data.frame"),
+          function(data, genome, annotation,
+                   width, height, colors,
+                   combine_replicates, outpath,
+                   path, display,
+                   prefix){
+
+        # constructs the arguments
+        x <- list(
+
+          ### implement combine replicates into wrangle tracks
+          data = data,
+          # data = wrangle_tracks(data, combine_replicates)
+
+          settings = list(genome     = predefined_genomes(genome),
+                          annotation = predefined_annotations(annotation),
+                          prefix     = prefix)
+        )
+
+        # -------------------------------------------------------------- #
+        # create the widget
+        widget <- htmlwidgets::createWidget("dallianceR", x, width = width, height = height,
+                                            elementId = "svgHolder")
+
+        # "selfcontained" requires Pandoc to be installed.  We better not
+        # add a dependency on Haskell for something as simple as
+        # generating an HTML page.
+        htmlwidgets::saveWidget(widget=widget,
+                                file=file.path(path, "index.html"),
+                                selfcontained=FALSE)
+
+        if (display) {
+            # TODO: run a local HTTP server first
+            system2(command=getOption("browser"),
+                    args=c(paste(prefix, "/index.html", sep="")))
+        }
+
+
+})
+
 
 # ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{data.frame}(data,genome, annotation, width, height)
+#' @usage  \\S4method{dalliance}{data.frame}(data,genome, annotation, width, height,
+#'                    colors, combine_replicates, outpath, path, display, prefix)
 setMethod("dalliance",signature("data.frame"),
-          function(data=NULL, genome=NULL, annotation=NULL,
-                   width = NULL, height = NULL,
-                   path="/tmp/dalliance", display=FALSE,
-                   prefix="http://localhost:8000/") {
+          function(data, genome, annotation,
+                   width, height, colors,
+                   combine_replicates, outpath,
+                   path, display,
+                   prefix) {
 
 
     # -------------------------------------------------------------- #
@@ -67,8 +120,8 @@ setMethod("dalliance",signature("data.frame"),
 
     # -------------------------------------------------------------- #
     # Sets the colors
-    if(!is.null(color)){
-      if(!length(color) == length(data$Sample)){
+    if(!is.null(colors)){
+      if(!length(colors) == length(data$Sample)){
         stop('number of colors does not correspond to the number of samples')
 
       }else{
@@ -76,7 +129,7 @@ setMethod("dalliance",signature("data.frame"),
           fac = with(data, paste(Sample, Replicate))
 
         }else{
-          fac = data$sample
+          fac = data$Sample
         }
         data$Color = colors[as.numeric(as.factor(fac))]
       }
@@ -127,10 +180,14 @@ setMethod("dalliance",signature("data.frame"),
 
 # ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{GRanges}(data, genome, annotation, width, height, colors, combine_replicates, outpath)
+#' @usage  \\S4method{dalliance}{GRanges}(data, genome, annotation, width, height,
+#'                    colors, combine_replicates, outpath, path, display, prefix)
 setMethod("dalliance",signature("GRanges"),
           function(data, genome, annotation,
-                   width, height, colors, combine_replicates, outpath){
+                   width, height, colors,
+                   combine_replicates, outpath,
+                   path, display,
+                   prefix){
 
 
           if(!is.character(outpath) | !file.exists(outpath))
@@ -140,13 +197,33 @@ setMethod("dalliance",signature("GRanges"),
 
 # ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{GRangesList}(data, genome, annotation, width, height, colors, combine_replicates, outpath)
+#' @usage  \\S4method{dalliance}{GRangesList}(data, genome, annotation, width, height,
+#'                    colors, combine_replicates, outpath, path, display, prefix)
 setMethod("dalliance",signature("GRangesList"),
           function(data, genome, annotation,
-                   width, height, colors, combine_replicates, outpath){
+                   width, height, colors,
+                   combine_replicates, outpath,
+                   path, display,
+                   prefix){
 
 
             if(!is.character(outpath) | !file.exists(outpath))
               stop('outpath is not a valid path')
 
           })
+
+# ---------------------------------------------------------------------------- #
+#' @rdname dalliance-methods
+#' @usage  \\S4method{dalliance}{tbl_df}(data, genome, annotation, width, height,
+#'                    colors, combine_replicates, path, display, prefix)
+setMethod("dalliance",signature("tbl_df"),
+          function(data, genome, annotation,
+                   width, height, colors,
+                   combine_replicates,
+                   path, display,
+                   prefix){
+
+          dalliance(as.data.frame(data), genome, annotation,width, height, colors,
+                    combine_replicates, path, display,prefix)
+})
+
