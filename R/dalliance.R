@@ -12,7 +12,7 @@
 #'
 #' @param height
 #'
-#' @param color
+#' @param colors
 #'
 #' @param combine_replicates
 #'
@@ -29,24 +29,25 @@ setGeneric("dalliance",
                     annotation=NULL,
                     width=NULL,
                     height=NULL,
-                    color=NULL,
+                    colors=NULL,
                     combine_replicates=FALSE,
                     outpath=NULL)
              standardGeneric("dalliance") )
 
-# ------------------------------------------------ #
+
+# ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
 #' @usage  \\S4method{dalliance}{data.frame}(data,genome, annotation, width, height)
 setMethod("dalliance",signature("data.frame"),
           function(data=NULL, genome=NULL, annotation=NULL,
                    width = NULL, height = NULL){
 
-
+    # -------------------------------------------------------------- #
     # checks the variables
     if(class(data) != 'data.frame')
       stop('data needs to be a data.frame object')
 
-    columns.required = c('Experiment','Sample','Replicate')
+    columns.required = c('Experiment','Sample','Replicate','Path')
     if(!all(columns.required %in% colnames(data))){
       stop(paste('data is missing the following column names:',
                  setdiff(columns.required, colnames(data)), collapse=" "))
@@ -58,13 +59,29 @@ setMethod("dalliance",signature("data.frame"),
     if(!is.character(annotation))
         stop('annotation needs to be a character vector')
 
-    if(!is.null(color) & length(color) != length(data$Sample))
+    # -------------------------------------------------------------- #
+    # Sets the colors
+    if(!is.null(color)){
+      if(!length(color) == length(data$Sample)){
         stop('number of colors does not correspond to the number of samples')
+
+      }else{
+        if(combine_replicates){
+          fac = with(data, paste(Sample, Replicate))
+
+        }else{
+          fac = data$sample
+        }
+        data$Color = colors[as.numeric(as.factor(fac))]
+      }
+    }
 
 
 
 
     # pass the data and settings using 'x'
+    # -------------------------------------------------------------- #
+    # constructs the arguments
     x <- list(
 
       ### implement combine replicates into wrangle tracks
@@ -75,16 +92,18 @@ setMethod("dalliance",signature("data.frame"),
                       annotation = predefined_annotations(annotation))
     )
 
+    # -------------------------------------------------------------- #
     # create the widget
     htmlwidgets::createWidget("dallianceR", x, width = width, height = height,
                               elementId='svgHolder')
 })
 
+# ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{GRanges}(data, genome, annotation, width, height, color, combine_replicates, outpath)
+#' @usage  \\S4method{dalliance}{GRanges}(data, genome, annotation, width, height, colors, combine_replicates, outpath)
 setMethod("dalliance",signature("GRanges"),
           function(data, genome, annotation,
-                   width, height, color, combine_replicates, outpath){
+                   width, height, colors, combine_replicates, outpath){
 
 
           if(!is.character(outpath) | !file.exists(outpath))
@@ -92,12 +111,12 @@ setMethod("dalliance",signature("GRanges"),
 
 })
 
-# ------------------------------------------------ #
+# ---------------------------------------------------------------------------- #
 #' @rdname dalliance-methods
-#' @usage  \\S4method{dalliance}{GRangesList}(data, genome, annotation, width, height, color, combine_replicates, outpath)
+#' @usage  \\S4method{dalliance}{GRangesList}(data, genome, annotation, width, height, colors, combine_replicates, outpath)
 setMethod("dalliance",signature("GRangesList"),
           function(data, genome, annotation,
-                   width, height, color, combine_replicates, outpath){
+                   width, height, colors, combine_replicates, outpath){
 
 
             if(!is.character(outpath) | !file.exists(outpath))
