@@ -8,3 +8,8 @@ dependencies:
       - dalliance/css/bootstrap-scoped.css
       - dalliance/css/dalliance-scoped.css
       - dalliance/css/font-awesome.min.css
+  - name: dallianceR
+    version: 0.0.1
+    src: htmlwidgets
+    script:
+      - dallianceR.js
