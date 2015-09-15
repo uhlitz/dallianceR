@@ -14,20 +14,28 @@ This is a sketch for a [htmlwidget](https://htmlwidgets.org) wrapper for JavScri
 
 A dalliance function call generates a genome browser htmlwidget with a given reference genome (eg. GRCh38) and a given gene annotation (eg. GENCODEv21):
 
-```{r load_dalliance, results = "asis", echo = F, warnings = F, message = F}
+```{r load_dalliance, echo = F, warnings = F, message = F}
 
-source("R/dalliance.R")
-source("R/data.R")
+library(dallianceR)
+library(DT)
+library(dplyr)
 
 ```
 
 # Example browser with tracks
 
-```{r browser_w_tracks, results = "asis", echo = F, warnings = F, message = F}
+```{r browser_w_tracks, echo = F, warnings = F, message = F, include = T}
 
-dalliance(input = dummy)
+dalliance(data = dummy)
 
 ```
+
+```{r toplist, echo = F, warnings = F, message = F, include = T}
+
+datatables(data_frame(a = 1:10, b = runif(10)))
+
+```
+
 
 
 # Workflow
