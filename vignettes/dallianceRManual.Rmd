@@ -1,0 +1,63 @@
+---
+title: "dallianceR Manual"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Vignette Title}
+  \usepackage[utf8]{inputenc}
+---
+
+
+```{r global_options, include = F}
+
+knitr::opts_knit$set(root.dir = "../")
+
+```
+
+```{r dep, echo = F, warnings = F, message = F}
+
+library(dallianceR)
+
+```
+
+
+## Quickstart
+
+dallianceR is an interactive genome browser for R. It's based on JavaScript library [dalliance](https://biodalliance.org) and implemented in R with [htmlwidgets](https://htmlwidgets.org). You can start by typing 
+
+```{r quickstart, echo = T, warnings = F, message = F, eval = F}
+
+dalliance()
+
+```
+
+It will open a blank genome browser with default reference genome **GRCh38** and default annotation **GENCODEv21**. 
+
+## General functionality 
+
+Instead of default parameters, you can choose from a list of predefined reference genomes and annotation data or define your own reference and annotation tracks. A common workflow loads... 
+
+* a public reference genome
+* a public gene annotation
+* custom tracks with
+    + quantitative data: `.bigbed`, `.bigwig` or indexed `.bam.`
+    + or qualitative data: eg. `.gff` and `.vcf` (future) 
+
+### Predefined reference genomes and annotation data
+
+When opening a dalliance browser, you can choose from the following reference genomes and genome annotation:
+
+**Reference genomes:** `r list_predefined_genomes()`
+
+**Genome annotations:** `r list_predefined_annotations()`
+
+```{}
+
+list_predefined_gen
+
+```
+
+
+
+
+
