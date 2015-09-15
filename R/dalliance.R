@@ -31,7 +31,9 @@ setGeneric("dalliance",
                     height=NULL,
                     colors=NULL,
                     combine_replicates=FALSE,
-                    outpath=NULL)
+                    outpath=NULL,
+                    filename="index.html",
+                    display=FALSE)
              standardGeneric("dalliance") )
 
 
@@ -40,7 +42,9 @@ setGeneric("dalliance",
 #' @usage  \\S4method{dalliance}{data.frame}(data,genome, annotation, width, height)
 setMethod("dalliance",signature("data.frame"),
           function(data=NULL, genome=NULL, annotation=NULL,
-                   width = NULL, height = NULL){
+                   width = NULL, height = NULL,
+                   filename="index.html", display=FALSE) {
+
 
     # -------------------------------------------------------------- #
     # checks the variables
@@ -76,9 +80,6 @@ setMethod("dalliance",signature("data.frame"),
       }
     }
 
-
-
-
     # pass the data and settings using 'x'
     # -------------------------------------------------------------- #
     # constructs the arguments
@@ -94,8 +95,22 @@ setMethod("dalliance",signature("data.frame"),
 
     # -------------------------------------------------------------- #
     # create the widget
-    htmlwidgets::createWidget("dallianceR", x, width = width, height = height,
-                              elementId='svgHolder')
+    widget <- htmlwidgets::createWidget("dallianceR", x, width = width, height = height,
+                                        elementId = "svgHolder")
+
+    # "selfcontained" requires Pandoc to be installed.  We better not
+    # add a dependency on Haskell for something as simple as
+    # generating an HTML page.
+    htmlwidgets::saveWidget(widget=widget,
+                            file=filename,
+                            libdir=".",
+                            selfcontained=FALSE)
+
+    if (display) {
+        # TODO: run a local HTTP server first
+        system2(command=getOption("browser"),
+                args=c("http://localhost:8000/index.html"))
+    }
 })
 
 # ---------------------------------------------------------------------------- #
