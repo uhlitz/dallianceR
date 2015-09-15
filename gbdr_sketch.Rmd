@@ -8,6 +8,12 @@ output:
     toc: yes
 ---
 
+```{r dep, echo = F, warnings = F, message = F}
+
+library(dallianceR)
+
+```
+
 This is a sketch for a [htmlwidget](https://htmlwidgets.org) wrapper for JavScript genome browser [dalliance](https://biodalliance.org).
 
 # Quick guide
@@ -32,7 +38,7 @@ dalliance(data = dummy)
 
 ```{r toplist, echo = F, warnings = F, message = F, include = T}
 
-datatables(data_frame(a = 1:10, b = runif(10)))
+datatable(data_frame(a = 1:10, b = runif(10)))
 
 ```
 
