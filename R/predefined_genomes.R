@@ -19,3 +19,7 @@ predefined_genomes <- function(name) {
                   "Predefined genomes are:",
                   paste(ref_tab$name, collapse = ", ")))
 }
+list_predefined_genomes <- function() {
+  data(ref_tab)
+  ref_tab$name
+}

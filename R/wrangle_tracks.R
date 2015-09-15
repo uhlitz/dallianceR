@@ -23,21 +23,22 @@ wrangle_tracks <- function(data, color = "Dark2") {
     .[data$Sample] ->
     ALPHA_list
 
-  data %>%
+  if (any("Color" %in% colnames(data))) {
+  data %<>%
     mutate(Color = Experiment %>%
              unique %>%
              length %>%
              brewer.pal(color) %>%
              setNames(Experiment %>% unique) %>%
-             .[Experiment]) ->
-    colored_data
+             .[Experiment])
+  }
 
   lapply(ALPHA_list %>% names %>% unique, function(x) {
-    colored_data %>%
+    data %>%
       filter(Sample == x) %$%
       Experiment %>%
       unique %>%
-      {filter(colored_data, Experiment == .)} %>%
+      {filter(data, Experiment == .)} %>%
       mutate(alpha = ALPHA_list[[x]])}) %>%
     setNames(unique(data$Sample)) -> ld
     do.call(rbind, lapply(names(ld), function(x){d=ld[[x]];d$group=x;d}))
