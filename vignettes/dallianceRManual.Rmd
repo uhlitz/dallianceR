@@ -16,6 +16,8 @@ knitr::opts_knit$set(root.dir = "../")
 
 ```{r dep, echo = F, warnings = F, message = F}
 
+library(knitr)
+library(dplyr)
 library(dallianceR)
 
 ```
@@ -25,39 +27,98 @@ library(dallianceR)
 
 dallianceR is an interactive genome browser for R. It's based on JavaScript library [dalliance](https://biodalliance.org) and implemented in R with [htmlwidgets](https://htmlwidgets.org). You can start by typing 
 
-```{r quickstart, echo = T, warnings = F, message = F, eval = F}
+```{r, echo = T, warnings = F, message = F, eval = F}
 
 dalliance()
 
 ```
 
-It will open a blank genome browser with default reference genome **GRCh38** and default annotation **GENCODEv21**. 
+It will open a blank genome browser with default reference genome **GRCh38** and default annotation **GENCODEv21** and is synonymous with:
 
-## General functionality 
+```{r, echo = T, warnings = F, message = F, eval = F}
 
-Instead of default parameters, you can choose from a list of predefined reference genomes and annotation data or define your own reference and annotation tracks. A common workflow loads... 
-
-* a public reference genome
-* a public gene annotation
-* custom tracks with
-    + quantitative data: `.bigbed`, `.bigwig` or indexed `.bam.`
-    + or qualitative data: eg. `.gff` and `.vcf` (future) 
-
-### Predefined reference genomes and annotation data
-
-When opening a dalliance browser, you can choose from the following reference genomes and genome annotation:
-
-**Reference genomes:** `r list_predefined_genomes()`
-
-**Genome annotations:** `r list_predefined_annotations()`
-
-```{}
-
-list_predefined_gen
+dalliance(data = NULL, genome = "GRCh38", annotation = "GENCODEv21")
 
 ```
 
 
+## Predefined reference genomes and annotation data
+
+Instead of default parameters, you can choose from a list of predefined reference genomes and annotation data:
+
+```{r refs, echo = F}
+
+ann_tab %>% 
+  rename(Annotation = name) %>% 
+  left_join(ref_tab %>% rename(reference = name), by = "reference") %>% 
+  select(speciesName, reference, Annotation) %>% 
+  setNames(c("Species", "Genome", "Annotation")) %>% 
+  kable
+
+```
+
+Alternatively, you can define your own reference and annotation tracks and provide it as a list to dalliance:
+
+```{r, eval = F}
+
+my_annotation <- list(name = "GENCODEv19", 
+                      desc = "Gene structures from GENCODE 21", 
+                      bwgURI = "http://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.bb",
+                      stylesheet_uri = "http://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.ix",
+                      trixURI = "http://www.biodalliance.org/datasets/GRCh38/gencode.v21.annotation.ix")
+
+my_genome <- list(speciesName = 'Human', 
+                  taxon = '9606', 
+                  auth = 'GRCh', 
+                  version = '38', 
+                  name = 'GRCh38', 
+                  twoBitURI = 'http://www.biodalliance.org/datasets/hg38.2bit', 
+                  desc = 'Human reference genome build GRCh38', 
+                  tier_type = 'sequence', 
+                  provides_entrypoints = 'true', 
+                  pinned = 'true')
+  
+dalliance(genome = my_genome, annotation = my_annotation)
+
+```
+
+## Add tracks to the browser
+
+You can add tracks from files or GRanges objects:
+
++ quantitative data: `.bigbed`, `.bigwig` or indexed `.bam.`
++ or qualitative data: eg. `.gff` and `.vcf` (future) 
+
+### Add tracks from bigwig files
+
+If not organised in a GRanges objects, files (e.g. bigwig) need to be provided in a dataframe structure that specifies `Experiment`, `Sample` and `Replicate` and `Path` like this:
+
+```{r, echo = F}
+
+source("R/data.R")
+dummy %>% kable
+
+```
+
+Say your dataframe is named `my_data`, you can call dalliance like this:
+
+```{r, eval = F}
+
+dalliance(data = my_data, genome = "GRCh38", annotation = "GENCODEv21")
+
+```
+
+Tracks belonging to the same Experiment are y-scaled together. By default replicates are overlayed in a single track. You can display them in individual tracks by setting `combine_replicates = F`:
+
+```{r, eval = F}
+
+dalliance(data = my_data, genome = "GRCh38", annotation = "GENCODEv21", combine_replicates = F)
+
+```
+
+### Add GRanges list
+
+TODO
 
 
 
