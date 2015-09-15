@@ -14,7 +14,7 @@ HTMLWidgets.widget({
     var data = (function () {
       var groups = {},
           data = x["data"],
-          rows = data["bigwig"].length;
+          rows = data["Path"].length;
 
       // This function creates a single object from the given data at
       // the given index.
@@ -49,7 +49,7 @@ HTMLWidgets.widget({
     var tracks = (function () {
       var makeOverlay = function (obj) {
         return { name: obj["Replicate"], // TODO: group name
-                 bwgURI: obj["bigwig"],
+                 bwgURI: obj["Path"],
                  noDownsample: true
                };
       };
