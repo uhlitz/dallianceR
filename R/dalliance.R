@@ -1,28 +1,28 @@
 # ---------------------------------------------------------------------------- #
 #' Description
 #'
-#' @param data \code{data.frame} , \code{GRanges}, a BAM file or a BigWig
+#' @param data \code{data.frame}, \code{GRanges}, a BAM file or a BigWig
 #'  to be overlapped with ranges in \code{data}
 #'
-#' @param genome
+#' @param genome a \code{character} to pick from defined genomes (\code{list_predefined_genomes()}) or a \code(list) to define a custom genome track
 #'
-#' @param annotation
+#' @param annotation a \code{character} to pick from defined annotations (\code{list_predefined_annotations()}) or a \code(list) to define a custom annotation track
 #'
-#' @param width
+#' @param width the width of the browser
 #'
-#' @param height
+#' @param height the height of the browser
 #'
-#' @param colors
+#' @param colors a \code{vector} of colors. Length must equal number of rows in \code{data}
 #'
-#' @param combine_replicates
+#' @param combine_replicates \code{TRUE} by default. If \code{FALSE}, replicates are displayed as individual tracks
 #'
-#' @param outpath
+#' @param outpath path to export GRanges object as .bigiwg
 #'
-#' @param path
+#' @param path path to tmp folder where dalliance runs webserver
 #'
-#' @param display
+#' @param display whether or not to display the saved widget
 #'
-#' @param prefix
+#' @param prefix url of local HTTP server
 #'
 #' @examples
 #'
